@@ -1,0 +1,367 @@
+﻿<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<link href="./css/index.css" rel="stylesheet">
+		<script src="./js/jquery.1.9.1.min.js" type="text/javascript"></script>
+		<script src="./js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="./js/index.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div class="flex">
+			<div class="flex-nav">
+				<ul class="nav">
+					<li>
+						<h4>
+							<div class="title">
+								<span class="glyphicon glyphicon-folder-close"></span>
+								&nbsp;序言
+							</div>
+							<div class="title-toggle">
+								<span class="glyphicon glyphicon-menu-up"></span>
+							</div>
+						</h4>
+						<ul>
+							<li>
+								<a href="#introduce">介绍</a>
+							</li>
+							<li>
+								<a href="#RequestHeader">请求头-鉴权认证机制</a>
+							</li>
+							<li>
+								<a href="#ResultStruct">结果结构</a>
+							</li>
+							<li>
+								<a href="#ResultCode">返回结果码</a>
+							</li>
+							<li>
+								<a href="#CallExample">调用示例</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav">
+					<li>
+						<h4>
+							<div class="title">
+								<span class="glyphicon glyphicon-folder-close"></span>
+								&nbsp;接口描述
+							</div>
+							<div class="title-toggle">
+								<span class="glyphicon glyphicon-menu-up"></span>
+							</div>
+						</h4>
+						<ul>
+							<li>
+								<a href="#${target_name_1}">申请单通行线路查询</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="flex-content">
+				<div class="nav-toggle">
+					<h4><span class="glyphicon glyphicon-th-large" style="cursor:pointer;"></span></h4>
+				</div>
+				<div id="introduce" class="api-item">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="page-header">
+									<h3>介绍</h3>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="padding-left: 15px;">
+							本接口文档旨在帮助第三方调用者能够迅速使用同步库接口,请在调用接口前先阅读该文档。<br>
+							<b>1.所有查询统一以POST方式调用接口 http://ip:port/api/TBK/Query （其中ip:port为同步库服务器ip和端口）</b><br>
+							<b>2.调用接口需要在请求头中传入接口编号和相关授权信息，具体要求请参考<a href="#RequestHeader">请求头描述</a></b><br>
+							<b>3.请求参数请以Content-Type: application/json 方式传入类似{a:1,b:"2"}</b><br>
+							<b>4.接口返回数据格式，请参考<a href="#ResultStruct">结果结构</a>，后续所有结果描述，只介绍result里面数据格式</b><br>
+							<b>5.下述所有接口不再描述上面4条通用规则</b>
+						</div>
+					</div>
+				</div>
+
+				<div id="RequestHeader" class="api-item">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="page-header">
+									<h3>请求头-鉴权认证机制</h3>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table table-bordered table-responsive">
+									<thead class="bg-primary">
+									<th>参数名</th><th>必选</th><th>类型</th><th>描述</th>
+									</thead>
+									<tbody>
+									<tr>
+										<td>code</td><td>是</td><td>string</td><td>申请的接口编号</td>
+									</tr>
+									<tr>
+										<td>appKey</td><td>是</td><td>string</td><td>接口授权码</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="ResultStruct" class="api-item">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="page-header">
+									<h3>结果结构</h3>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+<pre>{
+  <code>"code" : 0</code>
+  <code>"codeRemark" : "成功"</code>
+  <code>"message" : ""</code>
+  <code>"result" : </code> [{
+    <code>"id" : "1"</code>
+    <code>"fieldName_1" : "value_1"</code>
+    <code>"fieldName_2" : "value_2"</code>
+    <code>"fieldName_3" : "value_3"</code>
+    <code>"fieldName_4" : "value_4"</code>
+  },{
+    <code>"id" : "1"</code>
+    <code>"fieldName_1" : "value_1"</code>
+    <code>"fieldName_2" : "value_2"</code>
+    <code>"fieldName_3" : "value_3"</code>
+    <code>"fieldName_4" : "value_4"</code>
+  }]
+}</pre>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<h4>返回参数说明：</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table table-bordered table-responsive">
+									<thead class="bg-primary">
+									<th>参数名</th><th>类型</th><th>说明</th>
+									</thead>
+									<tbody>
+									<tr>
+										<td>code</td><td>int</td><td><a href="#ResultCode">结果码</a> 0:代码成功 非0表示调用错误</td>
+									</tr>
+									<tr>
+										<td>codeRemark</td><td>string</td><td>结果码说明</td>
+									</tr>
+									<tr>
+										<td>message</td><td>string</td><td>code非0时 具体的错误信息</td>
+									</tr>
+									<tr>
+										<td>result</td><td>array</td><td>code为0时，返回查询具体结果</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="ResultCode" class="api-item">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="page-header">
+									<h3>全局结果码</h3>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table table-bordered table-responsive">
+									<thead class="bg-primary">
+									<th>编号</th><th>描述</th>
+									</thead>
+									<tbody>
+									<tr>
+										<td>0</td><td>成功</td>
+									</tr>
+									<tr>
+										<td>1</td><td>授权码appKey为空</td>
+									</tr>
+									<tr>
+										<td>2</td><td>接口编号code为空</td>
+									</tr>
+									<tr>
+										<td>3</td><td>授权码appKey和code对应接口不存在或者接口已过期</td>
+									</tr>
+									<tr>
+										<td>4</td><td>IP不被允许访问</td>
+									</tr>
+									<tr>
+										<td>5</td><td>访问次数已达最大值</td>
+									</tr>
+									<tr>
+										<td>6</td><td>接口已停用</td>
+									</tr>
+									<tr>
+										<td>7</td><td>还未到接口生效时间</td>
+									</tr>
+									<tr>
+										<td>8</td><td>接口参数错误</td>
+									</tr>
+									<tr>
+										<td>9</td><td>接口已过期</td>
+									</tr>
+									<tr>
+										<td>20</td><td>其它错误</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="CallExample" class="api-item">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="page-header">
+									<h3>调用示例</h3>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table table-bordered table-responsive">
+									<thead class="bg-primary">
+									<th>编号</th><th>描述</th>
+									</thead>
+									<tbody>
+									<tr>
+										<td>0</td><td>成功</td>
+									</tr>
+									<tr>
+										<td>1</td><td>授权码appKey为空</td>
+									</tr>
+									<tr>
+										<td>2</td><td>接口编号code为空</td>
+									</tr>
+									<tr>
+										<td>3</td><td>授权码appKey和code对应接口不存在或者接口已过期</td>
+									</tr>
+									<tr>
+										<td>4</td><td>IP不被允许访问</td>
+									</tr>
+									<tr>
+										<td>5</td><td>访问次数已达最大值</td>
+									</tr>
+									<tr>
+										<td>6</td><td>接口已停用</td>
+									</tr>
+									<tr>
+										<td>7</td><td>还未到接口生效时间</td>
+									</tr>
+									<tr>
+										<td>8</td><td>接口参数错误</td>
+									</tr>
+									<tr>
+										<td>9</td><td>接口已过期</td>
+									</tr>
+									<tr>
+										<td>20</td><td>其它错误</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--api 接口模板布局   Start-->
+				<div id="${target_name_1}" class="api-item">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="page-header">
+									<h3>申请单通行线路查询</h3>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<h4>简要描述：</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<ul>
+									<li>接口描述111111111111111111111111111111111111111111111111111</li>
+								</ul>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<h4>参数：</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table table-bordered table-responsive">
+									<thead class="bg-primary">
+										<th>参数名</th><th>必选</th><th>类型</th><th>说明</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td>username</td><td>是</td><td>string</td><td>用户名</td>
+										</tr>
+										<tr>
+											<td>username</td><td>是</td><td>string</td><td>用户名</td>
+										</tr>
+										<tr>
+											<td>username</td><td>是</td><td>string</td><td>用户名</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<h4>返回参数说明：</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<table class="table table-bordered table-responsive">
+									<thead class="bg-primary">
+										<th>参数名</th><th>类型</th><th>说明</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td>${username}</td><td>${String}</td><td>用户名</td>
+										</tr>
+										<tr>
+											<td>${password}</td><td>${String}</td><td>密码</td>
+										</tr>
+										<tr>
+											<td>${phone}</td><td>${/}</td><td>联系电话</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

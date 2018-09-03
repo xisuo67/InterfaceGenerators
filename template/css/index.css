@@ -1,0 +1,107 @@
+﻿html, body {
+	width : 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+			
+.flex {
+	display: flex;
+	width: 100%;
+	background-color:#fff;
+	
+}
+
+.flex-nav {
+	flex: 1;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	float:left;
+	height: 100%;
+	background-color: #f5f5f5;
+	padding: 10px 10px;
+}
+
+.flex-content {
+	flex: 4;
+	height: 100%;
+	overflow:auto;
+	padding: 10px;
+}
+
+.flex-content > .api-item {
+	width: 800px;
+	margin:auto auto;
+}
+
+.flex-content > .api-item h1,
+.flex-content > .api-item h2,
+.flex-content > .api-item h3,
+.flex-content > .api-item h4,
+.flex-content > .api-item h5
+ {
+	font-weight: bold;
+}
+
+.flex-content > .api-item .api-url {
+	background-color: #e5e5e5;
+	display:inline-block;
+	border-radius: 3px;
+	border:1px solid #b7b7b7;
+	margin: 5px;
+	padding: 2px;
+	color: red;
+}
+
+.flex-content > .api-item pre code {
+	color: #080;
+}
+
+.nav {
+	list-style:none;
+	width: 100%;
+	height: auto;
+}
+
+.nav > li {
+	background-color: #f5f5f5;
+	margin-left: .5em;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.nav > li .title {
+	width: calc(100% - 34px);
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	float:left;
+}
+
+.nav > li .title-toggle {
+	width: 34px;
+	float: right;
+	text-align:center;
+	vertical-align: middle;
+}
+
+.nav > li > ul {
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	width: 100%;
+	height: auto;
+}
+
+.nav > li > ul > li {
+	height: 34px;
+	line-height: 34px;
+}
+.nav > li > ul > li > a {
+	text-decoration:none;
+}
+
+.nav > li > ul > li:hover {
+	background-color: #e5e5e5;
+}
