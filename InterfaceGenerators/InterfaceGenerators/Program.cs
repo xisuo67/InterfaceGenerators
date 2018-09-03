@@ -39,7 +39,7 @@ namespace InterfaceGenerators
         public static void CreateApiDoc(string apiDesc)
         {
             SwaggerDocument data = JsonConvert.DeserializeObject<SwaggerDocument>(apiDesc);
-            if (data!=null)
+            if (data != null)
             {
                 Dictionary<string, dynamic> dict = new Dictionary<string, dynamic>();  //数据字典
                 foreach (var key in data.definitions.Keys)
@@ -55,7 +55,7 @@ namespace InterfaceGenerators
                     var pathItem = data.paths[path];
                     if (curIndex % everyCount == 0)
                     {
-                        if (curIndex*10/everyCount<=100)
+                        if (curIndex * 10 / everyCount <= 100)
                         {
                             Console.WriteLine("接口文档生成进度" + curIndex * 10 / everyCount + "%");
                         }
@@ -64,8 +64,55 @@ namespace InterfaceGenerators
                     string method = string.Empty;  //请求方法
                     var Operation = GetOper(pathItem, out method);//请求方法转化方法
                     string controllerName = Operation.tags[0];  //控制器名称
-                }
+                    if (dictController.ContainsKey(controllerName))
+                    {
+                        curHeader = dictController[controllerName];
+                    }
+                    else
+                    {
+                        curHeader = controllerName;
+                    }
+                    if (curHeader != preHeader)
+                    {
+                        preHeader = curHeader;
+                    }
+                    var summary = Operation.summary;
+                    var apiPath = path;//接口地址
+                    if (Operation.parameters != null)
+                    {
+                        foreach (var item in Operation.parameters)
+                        {
+                            if (item.@in == "path")
+                            {
+                                var description = item.description; //描述
+                                var apiType = item.type;//接口类型
+                            }
+                            else if (item.@in == "body")
+                            {
+                                var apiName = item.name;
+                                string refDef = item.schema.refDef;
+                                dynamic pp;
+                                if (!string.IsNullOrEmpty(refDef) && dict.TryGetValue(refDef, out pp))
+                                {
+                                    var result = JsonConvert.SerializeObject(pp, Newtonsoft.Json.Formatting.Indented);
+                                }
+                                var description = item.description;
+                            }
+                        }
+                    }
 
+                    //写入返回值
+                    if (Operation.responses.ContainsKey("200"))
+                    {
+                        string refDefKey = Operation.responses["200"].schema?.refDef;
+                        dynamic pp1;
+                        if (!string.IsNullOrEmpty(refDefKey) && dict.TryGetValue(refDefKey, out pp1))
+                        {
+                            var result = JsonConvert.SerializeObject(pp1, Formatting.Indented);
+                        }
+                    }
+
+                }
             }
         }
         private static Operation GetOper(PathItem item, out string method)
