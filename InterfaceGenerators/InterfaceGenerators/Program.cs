@@ -41,7 +41,7 @@ namespace InterfaceGenerators
             SwaggerDocument data = JsonConvert.DeserializeObject<SwaggerDocument>(apiDesc);
             if (data!=null)
             {
-                Dictionary<string, dynamic> dict = new Dictionary<string, dynamic>();
+                Dictionary<string, dynamic> dict = new Dictionary<string, dynamic>();  //数据字典
                 foreach (var key in data.definitions.Keys)
                 {
                     InitParamsDefinedCache(data.definitions[key].properties, "#/definitions/" + key, dict, data.definitions);
@@ -61,9 +61,9 @@ namespace InterfaceGenerators
                         }
                     }
                     curIndex++;
-                    string method = string.Empty;
-                    var Operation = GetOper(pathItem, out method);
-                    string controllerName = Operation.tags[0];
+                    string method = string.Empty;  //请求方法
+                    var Operation = GetOper(pathItem, out method);//请求方法转化方法
+                    string controllerName = Operation.tags[0];  //控制器名称
                 }
 
             }
