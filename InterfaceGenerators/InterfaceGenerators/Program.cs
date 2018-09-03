@@ -33,7 +33,7 @@ namespace InterfaceGenerators
             Console.WriteLine("获取接口描述已完成，开始生成接口文档");
             CreateApiDoc(desc);
 
-            Console.WriteLine("接口文档已经完成到【" + AppDomain.CurrentDomain.BaseDirectory + "API说明手册.docx" + "】路径下");
+            //Console.WriteLine("接口文档已经完成到【" + AppDomain.CurrentDomain.BaseDirectory + "API说明手册.docx" + "】路径下");
             Console.Read();
         }
         public static void CreateApiDoc(string apiDesc)
@@ -49,7 +49,58 @@ namespace InterfaceGenerators
                 var dictController = data.ControllerDesc == null ? new Dictionary<string, string>() : data.ControllerDesc;
 
                 string curHeader = string.Empty, preHeader = string.Empty;
+                int everyCount = data.paths.Keys.Count / 10, curIndex = 1;
+                foreach (string path in data.paths.Keys)
+                {
+                    var pathItem = data.paths[path];
+                    if (curIndex % everyCount == 0)
+                    {
+                        if (curIndex*10/everyCount<=100)
+                        {
+                            Console.WriteLine("接口文档生成进度" + curIndex * 10 / everyCount + "%");
+                        }
+                    }
+                    curIndex++;
+                    string method = string.Empty;
+                    var Operation = GetOper(pathItem, out method);
+                    string controllerName = Operation.tags[0];
+                }
+
             }
+        }
+        private static Operation GetOper(PathItem item, out string method)
+        {
+            Operation opr = null;
+            if (item.get != null)
+            {
+                method = "GET";
+                opr = item.get;
+            }
+            else if (item.post != null)
+            {
+                method = "POST";
+                opr = item.post;
+            }
+            else if (item.put != null)
+            {
+                method = "PUT";
+                opr = item.put;
+            }
+            else if (item.delete != null)
+            {
+                method = "DELETE";
+                opr = item.delete;
+            }
+            else if (item.patch != null)
+            {
+                method = "PATCH";
+                opr = item.patch;
+            }
+            else
+            {
+                method = "GET";
+            }
+            return opr;
         }
         private static Dictionary<string, dynamic> InitParamsDefinedCache(IDictionary<string, Schema> item, string defkey, Dictionary<string, dynamic> dictResult, IDictionary<string, Schema> allitem)
         {
