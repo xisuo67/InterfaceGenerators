@@ -41,6 +41,7 @@ namespace InterfaceGenerators
             SwaggerDocument data = JsonConvert.DeserializeObject<SwaggerDocument>(apiDesc);
             if (data != null)
             {
+                var title = data.info.title;
                 Dictionary<string, dynamic> dict = new Dictionary<string, dynamic>();  //数据字典
                 foreach (var key in data.definitions.Keys)
                 {
