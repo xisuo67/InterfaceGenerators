@@ -95,7 +95,7 @@ namespace InterfaceGenerators
                                 dynamic pp;
                                 if (!string.IsNullOrEmpty(refDef) && dict.TryGetValue(refDef, out pp))
                                 {
-                                    var result = JsonConvert.SerializeObject(pp, Newtonsoft.Json.Formatting.Indented);
+                                    var param = JsonConvert.SerializeObject(pp, Newtonsoft.Json.Formatting.Indented); //请求参数
                                 }
                                 var description = item.description;
                             }
@@ -109,7 +109,7 @@ namespace InterfaceGenerators
                         dynamic pp1;
                         if (!string.IsNullOrEmpty(refDefKey) && dict.TryGetValue(refDefKey, out pp1))
                         {
-                            var result = JsonConvert.SerializeObject(pp1, Formatting.Indented);
+                            var result = JsonConvert.SerializeObject(pp1, Formatting.Indented); //返回结果
                         }
                     }
 
